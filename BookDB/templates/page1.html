@@ -1,0 +1,183 @@
+<!doctype html>
+{% load static  %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KD-Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  </head>
+  <style>
+    .top {
+      background-color: #a2a239;
+      width: 40%;
+      margin: auto;
+      border-radius: 5rem;
+      border-style: solid;
+      border-width: 7px;
+      border-color: #f1f1aa;
+      
+    }
+    
+    h1 {
+      color: black;  
+    }
+    
+    h3 {
+      color: #6d540b;
+    }
+    
+    body {
+      background: url('{% static 'libbg.jpg' %}') no-repeat center center fixed;
+      background-size: cover;
+    }
+    
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .card-item {
+      flex-basis: calc(25% - 1rem);
+      margin-bottom: 1rem;      
+      transition: transform 0.3s;
+    }
+
+    .card-item:hover {
+      transform: scale(1.08);
+    }
+    
+    .card-body {
+      background-color: #8d6509;
+      color: beige;
+    }
+    
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--bs-body-color);
+      background-color: #e2e29e;
+      background-clip: padding-box;
+      border: var(--bs-border-width) solid var(--bs-border-color);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: var(--bs-border-radius);
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+    
+    .btn-home {
+      background-color: green;
+      color: #e5e5ae;
+      font-size : 12px;
+      font-weight : bold;
+      border-color: #e5e5ae;
+    }
+    
+    .btn-remaining {
+      background-color: dodgerblue;
+      color: black;
+      font-size : 12px;
+      font-weight : bold;
+      border-color: black;
+    }
+    
+    .btn-issued {
+      background-color: dodgerblue;
+      color: black;
+      font-size : 12px;
+      font-weight : bold;
+      border-color: black;
+    }
+
+    .btn-remaining,.btn-issued,.btn-home {
+      width: calc(100%);
+      border-style: ridge;
+      border-width: 5px;  
+      border-radius : 15px;   
+    }
+
+    .btn-remaining:hover,.btn-issued:hover{
+      background-color:#e5e5ae;
+      border-color: black;
+    }
+
+    .btn-home:hover{
+      background-color:black;
+      color:#e5e5ae;
+      border-color: #e5e5ae;
+    }
+
+    a {
+      text-decoration: none;
+    }   
+
+  </style>
+  <body>
+    {% if messages %}
+      <script>
+        {% for message in messages %}
+        alert("{{ message }}");
+        {% endfor %}
+      </script>
+    {% endif %}
+    <br>
+    <div class="top">
+      <br>
+      <center><h1>Welcome to the Library!</h1></center>
+      <center><h3>List of {{Type}} Books!</h3></center>
+      <div style="position: absolute; top: 45px; right: 15px;border-radius:10px;border-width:5px; border-style:ridge;">
+        <a href="/BookDB/logoutUser/" class="btn btn-danger">Logout</a>
+      </div>
+      <br>
+      <div style="position: absolute; top: -1px; left: 10px;">
+        &nbsp &nbsp<a href="/BookDB" class="btn btn-home">Home</a><br>
+        <span style="display: inline-block; height: 3px;"></span>
+        <a href="/BookDB/Remaining" class="btn btn-remaining">Remaining</a><br>
+        <span style="display: inline-block; height: 3px;"></span>
+        <a href="/BookDB/alreadyIssued" class="btn btn-issued">Collection</a>
+      </div>
+    </div>
+    <br>
+
+    <div class="container">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search" name="searchtext" aria-describedby="button-addon2">
+          <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
+        </div>
+      </form>
+    </div>
+    <br>
+    <div class="card-container">
+      {% for x in Books %}
+        <div class="card-item">
+        <a href="/BookDB/moreDetails?bookid={{x.id}}">
+          <div class="card mt-3 mx-4" style="width: 18rem; border-style:solid; border-width:3px; border-color:beige;">
+            <img src="{{x.BookCover}}" class="card-img-top" alt="img" style="height: 225px; object-fit: cover; object-position: top;">
+            <div class="card-body">
+              <h5 class="card-title">{{ x.BookName }}</h5>
+              <p class="card-text">
+                <ul>
+                  <li>Author: {{ x.AuthorID.AuthorFName }} {{ x.AuthorID.AuthorLName }}</li>
+                  <li>Genre: {{ x.GenreID.Genre }}</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+  </body>
+</html>

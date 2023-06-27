@@ -1,0 +1,131 @@
+<!doctype html>
+{% load static%}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/static/CSS/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <title>KD-Library</title>
+</head>
+<style>
+    .top {
+      background-color: #ca8b3a;
+      width: 40%;
+      margin: auto;
+      margin-bottom: -15vh;
+      border-radius: 5rem;
+      border-style: solid;
+      border-width:15px;
+      border-color:#f1f1aa;
+    }
+    h1 {
+      color: #ffe085;  
+    }
+    h3 {
+      color: beige;
+    }
+    body {
+      {% comment %} background-color: darkslateblue; {% endcomment %}
+      background: url('{% static 'libbg.jpg' %}') no-repeat center center fixed;
+      background-size : cover;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .card-item {
+      flex-basis: calc(25% - 1rem);
+      margin-bottom: 1rem;
+    }
+    #bgsec{
+      background-color: #ca8b3a;
+      color: #eded97;
+      border-style: solid;
+      border-width:7px;
+      border-color:#a3a382;
+    }
+    
+
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff2cd;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      /* -webkit-appearance: none; */
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 1rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  </style>
+<body>
+
+    <br>
+    <div class="top">
+      <br>
+      <center><h1>Login to your account</h1></center>
+      <center><h3>Enter Registered E-Mail & Password</h3></center>
+      <br>
+    </div>
+
+  <div class="container mt-4 mb-0" style="width:450px;">
+    {% if messages %}
+      <script>
+        {% for message in messages %}
+        alert("{{ message }}");
+        {% endfor %}
+      </script>
+    {% endif %}
+    
+        {% if msg %}
+        <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+          <i class="bi-exclamation-octagon-fill"></i>
+          <strong class="mx-2">Error!</strong>{{msg}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="" method="post" novalidate class="shadow p-5" >
+        {% csrf_token %}
+        <section class="vh-100 gradient-custom">
+          <div class="container mt-0 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card" style="border-radius: 9rem;" id="bgsec">
+                  <div class="card-body p-5 text-center">
+        
+                    <div class="mb-md-5 pb-2">
+                      <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                      <p class="text-white-50 mb-5">Please enter your Email and Password!</p>
+    
+                      {% for fm in form %}
+                      <div class="form-outline form-white mb-4">
+                        <label class="form-label">{{fm.label}}</label>{{fm}}
+                      </div>
+                      {% endfor %}
+                      <button class="btn btn-outline-light btn-lg px-5 mt-3" type="submit"><bold>Login</bold></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

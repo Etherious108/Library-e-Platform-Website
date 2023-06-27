@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KD-Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+      .top {
+        background-color: #ca8b3a;
+        width: 35%;
+        margin: auto;
+        border-radius: 5rem;
+        border-style: solid;
+        border-width:15px;
+        border-color:#f1f1aa;
+      }
+      h1 {
+        color: #28282B;
+        FONT-weight:bold;  
+      }
+      h3 {
+        color: beige;
+      }
+      body {
+        background: url('{% static 'libbg.jpg' %}') no-repeat center center fixed;
+        background-size : cover;
+      }
+      label{
+        font-weight : bold;
+        font-size : 1.2em;
+      }
+
+      input[type="password" i] {
+        -webkit-text-security: disc !important;
+        padding: 1px 2px;
+        border-radius:0.75rem;
+        background-color:#fff2cd;
+      }
+
+      .bg-dark3 {
+        --bs-bg-opacity: 1;
+        background-color: #ca8b3a;
+        color:#ffffca;
+        border-style: solid;
+        border-width:7px;
+        border-color:#a3a382;
+      }
+
+      .btn-group-lg>.btn, .btn-lg {
+        --bs-btn-padding-y: 0.5rem;
+        --bs-btn-padding-x: 1rem;
+        --bs-btn-font-size: 1.25rem;
+        --bs-btn-border-radius: var(--bs-border-radius-lg);
+        font-weight: 600;
+      }
+      
+      .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .card-item {
+        width: 500px;
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+      .form-control {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff2cd;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        /* -webkit-appearance: none; */
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 1rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    </style>
+  </head>
+  <body>
+    <br>
+    <div class="top">
+      <br>
+      <center><h1>Create User Account!</h1></center>
+      <center><h3>Please Input your details</h3></center>
+      <br>
+    </div>
+    <br>
+
+    <form action="" method="post" novalidate class="shadow p-5" enctype="multipart/form-data">
+      {% if messages %}
+        {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{message.tags}} mb-4" {% endif %} align="center"> {{message}} </p>
+        {% endfor %}
+      {% endif %}
+      {% csrf_token %}
+      <section class="vh-100 gradient-custom">
+        <div class="card-container">
+          <div class="card-item">
+            <div class="card bg-dark3" style="border-radius: 5rem;">
+              <div class="card-body p-5 text-center">
+
+                <div class="mb-md-5 pb-2">
+
+                  {% for fm in form %}
+                  <div class="form-outline form-white mb-4">
+                    <label class="form-label mb-2">{{fm.label}}</label> {{fm}}
+                    <small class="text-danger mt-2"> {{fm.errors|striptags}} </small>
+                  </div>
+                  {% endfor %}        
+
+                  <button class="btn btn-outline-light btn-lg px-5 mt-3" type="submit">Register</button>
+                </div>                        
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% if form.non_field_errors %} 
+        {% for error in form.non_field_errors %}
+          <p class="alert alert-danger my-3">{{error}}</p>
+        {% endfor %}
+      {% endif %}
+    </form>
+  </body>
+</html>

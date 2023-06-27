@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>KD-Library</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      margin-left: -100px;
+      overflow: hidden;
+    }
+
+    .left-section {
+      flex: calc(70% - 100px);
+      background: url('{% static 'libbg.jpg' %}') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 40px;
+    }
+
+    .right-section-wrapper {
+      flex: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('{% static 'libbg.jpg' %}') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .right-section {
+      
+      {% comment %} background-color : #ca8b3a; {% endcomment %}
+      background: url('{% static 'wood.jpg' %}') no-repeat center center ;
+      background-size: cover;
+      border-radius: 500px;
+      border-style: solid;
+      border-width:7px;
+      border-color:#b7b700;
+      width: 65%;
+      height: 65%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+    }
+
+    .button {
+        background-color: #28282B;
+        color: white;
+        padding: 20px 60px;
+        border-style: ridge;
+        border-width:thick;
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-shadow: 
+        0 0 2px rgba(255, 255, 255, 0.8),
+        0 2px 2px rgba(0, 0, 0, 0.4),
+        2px 4px 6px rgba(0, 0, 0, 0.4);
+        width : 30%;
+        border-radius : 30px;
+    }
+      
+    .button:hover {
+        background-color: white;
+        color: #28282B;
+    }
+
+    .right-section-wrapper::after {
+      content: "";
+      flex-basis: 100px;
+      background: darkslateblue;
+    }
+    .bold-title {
+      font-weight: bold;
+      font-size: 90px;
+      font-weight: 900;
+      text-shadow: 
+        0 0 2px rgba(255, 255, 255, 0.8),
+        0 1px 2px rgba(0, 0, 0, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 8px rgba(0, 0, 0, 0.8),
+        0 8px 16px rgba(0, 0, 0, 0.8),
+        0 16px 32px rgba(0, 0, 0, 0.8),
+        0 32px 64px rgba(0, 0, 0, 0.8);
+      color: white; 
+    }
+
+  </style>
+</head>
+<body>
+  {% if messages %}
+    <script>
+      {% for message in messages %}
+      alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+  {% if messages %}
+    <script>
+      {% for message in messages %}
+      alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+
+  <div class="container">
+    <div class="left-section">
+      <h1 class="bold-title">Welcome to<br>KD-Library!</h1>
+    </div>
+    <div class="right-section-wrapper">
+      <div class="right-section">
+        <a href="/BookDB/loginUser/" class="button"><center>Login Now!</center></a>
+        <br><br><br>
+        <a href="/BookDB/registerUser" class="button"><center>Create User</center></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
